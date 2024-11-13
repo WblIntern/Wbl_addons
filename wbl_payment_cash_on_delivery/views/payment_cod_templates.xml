@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--# Author      : Weblytic Labs Pvt. Ltd. (<https://store.weblyticlabs.com/>)-->
+<!--# Copyright(c): 2023-Present Weblytic Labs Pvt. Ltd.-->
+<odoo>
+    <template id="redirect_form">
+        <form t-att-action="api_url" method="post">
+            <input type="hidden" name="reference" t-att-value="reference"/>
+        </form>
+    </template>
+    <template id="cash_on_delivery_fee" inherit_id="website_sale.total">
+        <tr id="order_total_untaxed" position="after">
+            <tr id="cod_payment_fee" t-if="fee_data and fee_data.is_cod_fee" style="display:none;">
+                <td colspan="2" class="ps-0 pt-0 pb-2 border-0 text-muted"
+                    title="Cash on Delivery payment fee will be disabled after choosing another payment method">
+                    <t t-esc="fee_data.fee_name"/>
+                </td>
+                <td class="text-end pe-0 pt-0 pb-2 border-0">
+                    <span t-field="fee_data.fee_amount"
+                          class="monetary_field"
+                          style="white-space: nowrap;"
+                          t-options='{"widget": "monetary", "display_currency": website_sale_order.currency_id}'/>
+                </td>
+            </tr>
+        </tr>
+    </template>
+    <template id="cash_on_delivery_message" inherit_id="website_sale.payment">
+        <div id="payment_method" position="before">
+            <div t-if="message" class="alert alert-warning">
+                <t t-esc="message"/>
+            </div>
+        </div>
+    </template>
+</odoo>

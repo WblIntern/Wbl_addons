@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--# Author      : Weblytic Labs Pvt. Ltd. (<https://store.weblyticlabs.com/>)-->
+<!--# Copyright(c): 2023-Present Weblytic Labs Pvt. Ltd.-->
+<odoo noupdate="1">
+    <record id="product_product_cod_fee" model="product.product">
+        <field name="name">Cash On Delivery Fee</field>
+        <field name="default_code">CashOnDelivery_012</field>
+        <field name="type">service</field>
+        <field name="categ_id" ref="delivery.product_category_deliveries"/>
+        <field name="sale_ok" eval="False"/>
+        <field name="purchase_ok" eval="False"/>
+        <field name="list_price">10.0</field>
+        <field name="invoice_policy">order</field>
+    </record>
+    <record id="wbl_payment_provider_cod" model="payment.provider">
+        <field name="name">Cash on Delivery</field>
+        <field name="code">cash_on_delivery</field>
+        <field name="redirect_form_view_id" ref="redirect_form"/>
+        <field name="image_128" type="base64" file="wbl_payment_cash_on_delivery/static/img/cash_on_delivery.png"/>
+        <field name="module_id" ref="base.module_wbl_payment_cash_on_delivery"/>
+        <field name="payment_method_ids"
+               eval="[Command.set([
+                         ref('wbl_payment_cash_on_delivery.wbl_payment_method_cod'),
+                     ])]"
+        />
+        <field name="product_id" ref="wbl_payment_cash_on_delivery.product_product_cod_fee"/>
+    </record>
+</odoo>

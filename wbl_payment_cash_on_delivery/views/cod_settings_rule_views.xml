@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--# Author      : Weblytic Labs Pvt. Ltd. (<https://store.weblyticlabs.com/>)-->
+<!--# Copyright(c): 2023-Present Weblytic Labs Pvt. Ltd.-->
+<odoo>
+    <record id="action_cod_settings_rule" model="ir.actions.act_window">
+        <field name="name">Cash On Delivery Rules</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">cod.settings.rule</field>
+        <field name="view_mode">list,kanban,form</field>
+    </record>
+    <record id="view_cod_settings_rule_tree" model="ir.ui.view">
+        <field name="name">cod.settings.rule.tree</field>
+        <field name="model">cod.settings.rule</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="id"/>
+                <field name="name"/>
+                <field name="state" widget="badge" decoration-info="state == 'inactive'"
+                       decoration-success="state == 'active'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_cod_settings_rule_form" model="ir.ui.view">
+        <field name="name">cod.settings.rule.form</field>
+        <field name="model">cod.settings.rule</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" string="Rule Name"/>
+                        <h1>
+                            <field name="name" placeholder="e.g. Cash On Delivery India"/>
+                        </h1>
+                    </div>
+                    <group name="cod_rule_header">
+                        <group name="general_settings" string="General Settings">
+                            <field name="min_order_amount"/>
+                            <field name="max_order_amount"/>
+                        </group>
+                        <group name="product_settings" string="Product Settings">
+                            <field name="product_ids" widget="many2many_tags_avatar"/>
+                        </group>
+                        <group name="customer_settings" string="Customer Settings">
+                            <field name="partner_ids" widget="many2many_tags_avatar"/>
+                        </group>
+                        <group name="calender_settings" string="Calender Settings">
+                            <field name="date_begin" widget="daterange" string="From" class="oe_inline"
+                                   options="{'related_end_date': 'date_end'}"/>
+                            <field name="date_end" widget="daterange" string="To" class="oe_inline"
+                                   options="{'related_start_date': 'date_begin'}"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="locations" string="COD Available Locations">
+                            <field name="country_region" widget="one2many">
+                                <list string="Cash On Delivery" editable="bottom">
+                                    <field name="country_id" placeholder="Country" class="o_address_country"
+                                           options='{"no_open": True, "no_create": True}'/>
+                                    <field name="state_id" class="o_address_state" placeholder="State"
+                                           options="{'no_open': True, 'no_quick_create': True}"
+                                           context="{'country_id': country_id, 'default_country_id': country_id, 'zip': zip}"/>
+                                    <field name="zip" placeholder="ZIP"/>
+                                    <field name="city" placeholder="City"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page name="messages" string="Messages">
+                            <group name="cod_rule_message_header">
+                                <group name="availability" string="Availability">
+                                    <field name="cod_available_alert" placeholder="Cash On Delivery Available!"/>
+                                    <field name="expected_delivery_date"/>
+                                    <field name="start_day_after"/>
+                                </group>
+                                <group name="policy" string="Policy">
+                                    <field name="cod_policy"/>
+                                    <field name="cod_unavailable_message_on_product"/>
+                                    <field name="cod_unavailable_message_on_payment"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page name="fee_settings" string="Fee Manager">
+                            <group name="cod_rule_message_header">
+                                <group name="availability" string="Fee Settings">
+                                    <field name="is_cod_fee"/>
+                                    <field name="fee_name" placeholder="Delivery Fee" invisible="not is_cod_fee"/>
+                                    <field name="fee_amount" invisible="not is_cod_fee"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <menuitem id="menu_ecommerce_payment_cod_rule"
+              parent="website_sale.menu_ecommerce_settings"
+              name="COD Payment Rules"
+              action="wbl_payment_cash_on_delivery.action_cod_settings_rule"
+              sequence="20"/>
+</odoo>

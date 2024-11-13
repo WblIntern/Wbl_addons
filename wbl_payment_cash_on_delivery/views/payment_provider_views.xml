@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--# Author      : Weblytic Labs Pvt. Ltd. (<https://store.weblyticlabs.com/>)-->
+<!--# Copyright(c): 2023-Present Weblytic Labs Pvt. Ltd.-->
+<odoo>
+    <data>
+        <record id="payment_provider_form" model="ir.ui.view">
+            <field name="name">cash.on.delivery.payment.provider.form</field>
+            <field name="model">payment.provider</field>
+            <field name="inherit_id" ref="payment.payment_provider_form"/>
+            <field name="arch" type="xml">
+                <field name="payment_method_ids" position="attributes">
+                    <attribute name="invisible">state == 'disabled' or code == 'cash_on_delivery'</attribute>
+                </field>
+                <a name="action_view_payment_methods" position="attributes">
+                    <attribute name="invisible">state == 'disabled' or code == 'cash_on_delivery'</attribute>
+                </a>
+<!--                <field name="capture_manually" position="after">-->
+<!--                    <field name="qr_code" invisible="code == 'cash_on_delivery'"/>-->
+<!--                </field>-->
+                <group name="provider_credentials" position="inside">
+                    <group invisible="code != 'cash_on_delivery'" name="cod_credentials">
+                        <field name="cod_applicable_rule"/>
+                    </group>
+                </group>
+                <group name="payment_form" position="inside">
+                    <field name="product_id" readonly="True" invisible="code != 'cash_on_delivery'"/>
+                </group>
+            </field>
+        </record>
+    </data>
+</odoo>

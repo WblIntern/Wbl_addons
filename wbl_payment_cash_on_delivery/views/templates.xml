@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--# Author      : Weblytic Labs Pvt. Ltd. (<https://store.weblyticlabs.com/>)-->
+<!--# Copyright(c): 2023-Present Weblytic Labs Pvt. Ltd.-->
+<odoo>
+    <template id="wbl_cash_on_delivery_info" inherit_id="website_sale.product">
+        <xpath expr="//div[@id='o_wsale_cta_wrapper']" position="after">
+            <div t-if="cod_config and is_cod_available == True">
+                <div t-if="cod_config.cod_available_alert" class="alert alert-success"
+                     t-esc="cod_config.cod_available_alert"/>
+                <div t-if="cod_config.cod_policy" class="alert alert-info" t-esc="cod_config.cod_policy"/>
+                <div t-if="cod_config.expected_delivery_date">
+                    Delivery by
+                    <t t-esc="expected_delivery_date.strftime('%d-%b-%Y')"/>
+                </div>
+                <div t-else="">
+                    <t t-esc="product.name"/>
+                    wil be delivered within
+                    <b t-esc="cod_config.start_day_after"/>
+                    days.
+                </div>
+            </div>
+            <div t-if="is_cod_available == False" class="alert alert-warning">
+                <t t-esc="cod_config.cod_unavailable_message_on_product"/>
+            </div>
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--# Author      : Weblytic Labs Pvt. Ltd. (<https://store.weblyticlabs.com/>)-->
+<!--# Copyright(c): 2023-Present Weblytic Labs Pvt. Ltd.-->
+<odoo noupdate="1">
+    <record id="wbl_payment_method_cod" model="payment.method">
+        <field name="name">Cash on Delivery</field>
+        <field name="code">cash_on_delivery</field>
+        <field name="sequence">1000</field>
+        <field name="image" type="base64" file="wbl_payment_cash_on_delivery/static/img/cash_on_delivery.png"/>
+        <field name="support_tokenization">False</field>
+        <field name="support_express_checkout">False</field>
+        <field name="support_refund">none</field>
+    </record>
+</odoo>

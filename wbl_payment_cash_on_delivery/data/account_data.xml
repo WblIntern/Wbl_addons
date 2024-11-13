@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--# Author      : Weblytic Labs Pvt. Ltd. (<https://store.weblyticlabs.com/>)-->
+<!--# Copyright(c): 2023-Present Weblytic Labs Pvt. Ltd.-->
+<odoo>
+    <data noupdate="1">
+        <record id="account_payment_term_cash_on_delivery" model="account.payment.term">
+            <field name="name">Cash On Delivery</field>
+            <field name="note">Payment terms: Cash On Delivery</field>
+            <field name="line_ids"
+                   eval="[Command.clear(), Command.create({'value': 'percent', 'value_amount': 100.0, 'nb_days': 0})]"/>
+        </record>
+    </data>
+</odoo>
