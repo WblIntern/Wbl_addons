@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- # Author      : Weblytic Labs Pvt. Ltd. (<https://store.weblyticlabs.com/>) -->
+<!-- # Copyright(c): 2023-Present Weblytic Labs Pvt. Ltd. -->
+<data noupdate="1">
+    <record id="mail_template_home_delivery_order" model="mail.template">
+        <field name="name">Home Delivery Order</field>
+        <field name="model_id" ref="wbl_home_delivery.model_pos_order"/>
+        <field name="subject">Home Delivery Order Placed</field>
+        <field name="description">Send notification to the delivery partner when an order has been placed and assigned
+            successfully.
+        </field>
+        <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p style="margin: 0px; padding: 0px; font-size: 12px;">
+                    Hello,
+                    <br/>
+                    <br/>
+                    A Home Delivery Order has been placed and assigned to you with Order id ${object.id}. Please deliver
+                    the order on time , ${object.order_note} and ${object.delivery_instruction}. test ${object}.
+                    <br/>
+                    <t t-esc="object.delivery_instruction"/>
+                    <t t-esc="object.order_note"/>
+                    <br/>
+                    Thank you for your trust!
+                </p>
+            </div>
+        </field>
+    </record>
+</data>
+

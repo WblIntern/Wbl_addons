@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--# Author      : Weblytic Labs Pvt. Ltd. (<https://store.weblyticlabs.com/>)-->
+<!--# Copyright(c): 2023-Present Weblytic Labs Pvt. Ltd.-->
+
+<odoo>
+    <record id="view_pos_form_inherited" model="ir.ui.view">
+        <field name="name">pos.form.view.inherit</field>
+        <field name="model">pos.order</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='notes']" position="after">
+                <page string="Home Delivery" name="home_delivery" invisible="not is_home_delivery">
+                    <group invisible="not is_home_delivery" string="Home Delivery Order Details">
+                        <group string="Delivery Person">
+                            <field name="selected_delivery_person" string="Delivery Person"/>
+                            <field name="delivery_person_name" string="Name"/>
+                            <field name="delivery_person_email" string="Email"/>
+                            <field name="delivery_person_mobile"
+                                   string="Mobile"/>
+                            <field name="is_home_delivery" invisible="1"/>
+                        </group>
+                        <group string="Delivery Date &amp;  Time">
+                            <field name="home_delivery_date" string="Delivery Date"/>
+                            <field name="home_delivery_time" string="Delivery Slot"/>
+                            <field name="delivery_instruction"/>
+                            <field name="order_note"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

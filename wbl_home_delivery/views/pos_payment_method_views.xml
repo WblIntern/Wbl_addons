@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--  # Author      : Weblytic Labs Pvt. Ltd. (<https://store.weblyticlabs.com/>)  -->
+<!--  # Copyright(c): 2023-Present Weblytic Labs Pvt. Ltd.  -->
+
+<odoo>
+    <data>
+        <record id="pos_payment_method_view_form_inherited" model="ir.ui.view">
+            <field name="name">pos.payment.method.delivery</field>
+            <field name="model">pos.payment.method</field>
+            <field name="inherit_id" ref="point_of_sale.pos_payment_method_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='Payment methods']" position="inside">
+                    <div class="row" id="use_home_delivery_row">
+                        <div class="col-md-5">
+                            <label for="use_home_delivery"/>
+                        </div>
+                        <div class="col" style="margin-left: -50px;">
+                            <field name="use_home_delivery" id="use_home_delivery"/>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

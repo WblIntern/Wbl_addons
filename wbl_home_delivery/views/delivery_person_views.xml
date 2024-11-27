@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--  # Author      : Weblytic Labs Pvt. Ltd. (<https://store.weblyticlabs.com/>)  -->
+<!--  # Copyright(c): 2023-Present Weblytic Labs Pvt. Ltd.  -->
+
+<odoo>
+    <data>
+        <record id="pos_delivery_person_action" model="ir.actions.act_window">
+            <field name="name">Delivery Person</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">delivery.person</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record id="delivery_person_tree_view" model="ir.ui.view">
+            <field name="name">Delivery Person Tree View</field>
+            <field name="model">delivery.person</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="user"/>
+                    <field name="is_publish" string="Publish" widget="boolean_toggle"/>
+                </tree>
+            </field>
+        </record>
+        <record id="delivery_person_form_view" model="ir.ui.view">
+            <field name="name">Delivery Person Form View</field>
+            <field name="model">delivery.person</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_published"
+                                    invisible="is_publish == False"
+                                    class="oe_stat_button"
+                                    type="object"
+                                    icon="fa-globe">
+                                <div class="o_stat_info o_field_widget">
+                                    <span class="o_stat_text text-success">Published</span>
+                                </div>
+                            </button>
+                            <button name="action_unpublished"
+                                    invisible="is_publish == True"
+                                    class="oe_stat_button"
+                                    type="object"
+                                    icon="fa-eye-slash">
+                                <div class="o_stat_info o_field_widget">
+                                    <span class="o_stat_text text-danger">Unpublished</span>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <label for="name" string="Delivery Person Code"/>
+                            <h1>
+                                <field name="name" placeholder="Delivery Person Code"/>
+                            </h1>
+                        </div>
+                        <group name="setting">
+                            <field name="user"/>
+                            <field name="delivery_person_email"/>
+                            <field name="delivery_person_mobile"/>
+                            <field name="is_publish" invisible="1"/>
+                            <field name="delivery_date"/>
+                            <field name="start_day_after" invisible="not delivery_date"/>
+                            <field name="order_preparation_time" invisible="not delivery_date or not delivery_time_slot"
+                                   widget="radio"/>
+                            <field name="delivery_time_slot" invisible="not delivery_date"/>
+                            <field name="time_interval" invisible="not delivery_date or not delivery_time_slot"/>
+                            <field name="max_order_in_single_slot"
+                                   invisible="not delivery_date or not delivery_time_slot"/>
+                            <field name="time_schedule" widget="one2many"
+                                   invisible="not delivery_time_slot or not delivery_date">
+                                <tree string="Time Schedule" editable="bottom">
+                                    <field name="week_days"/>
+                                    <field name="open_time_hours"/>
+                                    <field name="open_time_minutes"/>
+                                    <field name="close_time_hours"/>
+                                    <field name="close_time_minutes"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <menuitem id="delivery_person_menu"
+                  name="Delivery Person"
+                  parent="point_of_sale.menu_point_config_product"
+                  sequence="4"
+                  action="pos_delivery_person_action"/>
+    </data>
+</odoo>
