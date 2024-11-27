@@ -1,5 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-wbl_home_delivery.access_home_delivery,access_home_delivery,wbl_home_delivery.model_home_delivery,base.group_user,1,1,1,1
-access_delivery_person_public_public,delivery.person public,model_delivery_person,base.group_user,1,1,1,1
-access_delivery_time_schedule_public_public,delivery.time.schedule public,model_delivery_time_schedule,base.group_user,1,1,1,1
-

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--# Author      : Weblytic Labs Pvt. Ltd. (<https://store.weblyticlabs.com/>)-->
+<!--# Copyright(c): 2023-Present Weblytic Labs Pvt. Ltd.-->
+<odoo>
+    <record id="better_invoice_res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">better.invoice.res.config.settings.view.form</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="website.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//setting[@id='automatic_invoice_generation']" position="after">
+                <setting id="better_consolidated_invoice" help="Better consolidated invoice to organise order wise">
+                    <field name="better_consolidated_invoice"/>
+                    <div invisible="not better_consolidated_invoice">
+                        <label for="invoice_layout" class="o_light_label me-2"/>
+                        <field name="invoice_layout" class="oe_inline"/>
+                    </div>
+                </setting>
+            </xpath>
+        </field>
+    </record>
+</odoo>
