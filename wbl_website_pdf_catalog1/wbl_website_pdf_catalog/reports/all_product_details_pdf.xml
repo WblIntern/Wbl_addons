@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <template id="report_product">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <!-- Display Current Date -->
+                    <div class="col-md-12 text-center text-dark mb-4">
+                        <h5>Date:
+                            <t t-esc="current_date"/>
+                        </h5>
+                    </div>
+
+                    <!-- Product Details Table -->
+                    <h3 class="text-center">Product Details</h3>
+                    <table class="table table-bordered" style="width: 80%; margin: 0 auto;"> <!-- Table resizing -->
+                        <thead>
+                            <tr>
+                                <th style="width: 10%;">Image</th>
+                                <th style="width: 20%;">Product Name</th>
+                                <th style="width: 40%;">Description</th>
+                                <th style="width: 10%;">Price</th>
+                                <th style="width: 40%;">Attributes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="products" t-as="product">
+                                <tr>
+                                    <td class="td-img ps-0">
+                                        <t t-if="product['image']">
+                                            <img t-att-src="'data:image/png;base64,%s' % product['image']"
+                                                 class="img o_image_64_max rounded"
+                                                 style="width: 64px; height: 64px; object-fit: contain;"
+                                                 t-att-alt="product['name']"/>
+                                        </t>
+                                        <t t-else="">
+                                            <img class="img o_image_64_max rounded"
+                                                 style="width: 64px; height: 64px;"/>
+                                        </t>
+                                    </td>
+                                    <!--                                        <t t-if="product['image']">-->
+                                    <!--                                            <img t-att-src="'data:image/png;base64,%s' % product['image']"-->
+                                    <!--                                                 class="o_image_64_max img rounded"-->
+                                    <!--                                                 style="width: 70px; height: 70px;  contain;"/>-->
+                                    <!--                                        </t>-->
+                                    <!--                    </td>-->
+
+                                    <!--                                    <td>-->
+                                    <!--                                        <t t-if="product['image']">-->
+                                    <!--                                            <img class="img o_image_64_max rounded me-2"-->
+                                    <!--                                                 style="width: 50px; height: 50px;"/>-->
+                                    <!--                                        </t>-->
+                                    <!--                                    </td>-->
+
+                                    <!-- Product Name -->
+                                    <td>
+                                        <t t-esc="product['name']"/>
+                                    </td>
+
+                                    <!-- Product Description -->
+                                    <td>
+                                        <t t-esc="product['description']"/>
+                                    </td>
+
+                                    <!-- Product Price -->
+                                    <td style="text-align: right;"> <!-- Align price to the right -->
+                                        <t t-esc="product['currency_symbol']"/>
+                                        <t t-esc="product['price']"/>
+                                    </td>
+
+                                    <!-- Product Attributes -->
+                                    <td>
+                                        <t t-if="product['attributes']">
+                                            <ul style="padding-left: 10px;"> <!-- Adjust padding -->
+                                                <t t-foreach="product['attributes']" t-as="attr">
+                                                    <li>
+                                                        <strong><t t-esc="attr['attribute']"/>:
+                                                        </strong>
+                                                        <t t-esc="attr['value']"/>
+                                                    </li>
+                                                </t>
+                                            </ul>
+                                        </t>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>
+
+
+        <!--<odoo>-->
+        <!--    <template id="report_product">-->
+        <!--        <t t-call="web.html_container">-->
+        <!--            <t t-call="web.external_layout">-->
+        <!--                <div class="page">-->
+        <!--                    &lt;!&ndash; Display Current Date &ndash;&gt;-->
+        <!--                    <div class="col-md-12 text-center text-dark mb-4">-->
+        <!--                        <h5>Date:-->
+        <!--                            <t t-esc="current_date"/>-->
+        <!--                        </h5>-->
+        <!--                    </div>-->
+
+        <!--                    &lt;!&ndash; Product Details Table &ndash;&gt;-->
+        <!--                    <h3 class="text-center">Product Details</h3>-->
+        <!--                    <table class="table table-bordered">-->
+        <!--                        <thead>-->
+        <!--                                    <tr>-->
+        <!--                                        <th>Image</th>-->
+        <!--                                        <th>Product Name</th>-->
+        <!--                                        <th>Description</th>-->
+        <!--                                        <th>Price</th>-->
+        <!--                                        <th>Attributes</th>-->
+        <!--                                    </tr>-->
+        <!--                        </thead>-->
+        <!--                        <tbody>-->
+        <!--                            <t t-foreach="products" t-as="product">-->
+        <!--                                <tr>-->
+        <!--                                    &lt;!&ndash; Product Image &ndash;&gt;-->
+        <!--                                    <td>-->
+        <!--                                        <t t-if="product['image']">-->
+        <!--                                            <img t-att-src="'data:image/png;base64,%s' % product['image']"-->
+        <!--                                                 style="width: 50px; height: 50px; object-fit: contain;"/>-->
+        <!--                                        </t>-->
+        <!--                                    </td>-->
+        <!--                                    &lt;!&ndash;                                    <td>&ndash;&gt;-->
+
+        <!--                                    &lt;!&ndash;                                        <t t-if="product['image']">&ndash;&gt;-->
+        <!--                                    &lt;!&ndash;                                            <img t-att-src="'data:image/png;base64,%s' % cover_image"&ndash;&gt;-->
+        <!--                                    &lt;!&ndash;                                                 style="width: 50px; height: 50px;"/>&ndash;&gt;-->
+        <!--                                    &lt;!&ndash;                                        </t>&ndash;&gt;-->
+        <!--                                    &lt;!&ndash;                                    </td>&ndash;&gt;-->
+        <!--                                    &lt;!&ndash; Product Name &ndash;&gt;-->
+        <!--                                    <td>-->
+        <!--                                        <t t-esc="product['name']"/>-->
+        <!--                                    </td>-->
+        <!--                                    &lt;!&ndash; Product Description &ndash;&gt;-->
+        <!--                                    <td>-->
+        <!--                                        <t t-esc="product['description']"/>-->
+        <!--                                    </td>-->
+        <!--                                    &lt;!&ndash; Product Price &ndash;&gt;-->
+        <!--                                    <td>-->
+        <!--                                        <t t-esc="product['currency_symbol']"/>-->
+        <!--                                        <t t-esc="product['price']"/>-->
+        <!--                                    </td>-->
+        <!--                                    &lt;!&ndash; Product Attributes &ndash;&gt;-->
+        <!--                                    <td>-->
+        <!--                                        <t t-if="product['attributes']">-->
+        <!--                                            <ul>-->
+        <!--                                                <t t-foreach="product['attributes']" t-as="attr">-->
+        <!--                                                    <li>-->
+        <!--                                                        <strong><t t-esc="attr['attribute']"/>:-->
+        <!--                                                        </strong>-->
+        <!--                                                        <t t-esc="attr['value']"/>-->
+        <!--                                                    </li>-->
+        <!--                                                </t>-->
+        <!--                                            </ul>-->
+        <!--                                        </t>-->
+        <!--                                    </td>-->
+        <!--                                </tr>-->
+        <!--                            </t>-->
+        <!--                        </tbody>-->
+        <!--                    </table>-->
+        <!--                </div>-->
+        <!--            </t>-->
+        <!--        </t>-->
+        <!--    </template>-->
+        <!--</odoo>-->
+
+
+        <!--<odoo>-->
+        <!--    <template id="report_product">-->
+        <!--        <t t-call="web.html_container">-->
+        <!--            <t t-call="web.external_layout">-->
+
+        <!--                &lt;!&ndash; Page Title &ndash;&gt;-->
+        <!--                <div class="page">-->
+        <!--                    &lt;!&ndash; Logo Section: Only display if logo_image is True &ndash;&gt;-->
+        <!--                    <t t-if="header_text">-->
+        <!--                        <div class="col-md-12 text-center text-dark mb-4">-->
+        <!--                            <h4>-->
+        <!--                                <t t-esc="header_text"/>-->
+        <!--                            </h4>-->
+        <!--                        </div>-->
+        <!--                    </t>-->
+        <!--                    <t t-if="enable_logo">-->
+        <!--                        <div t-if="logo_position == 'left'" class="col-md-12 text-left">-->
+        <!--                            <img t-att-src="'data:image/png;base64,%s' % logo_image" alt="Logo"-->
+        <!--                                 style="max-width: 100px;"/>-->
+        <!--                        </div>-->
+        <!--                        <div t-if="logo_position == 'center'" class="col-md-12 text-center">-->
+        <!--                            <img t-att-src="'data:image/png;base64,%s' % logo_image" alt="Logo"-->
+        <!--                                 style="max-width: 100px;"/>-->
+        <!--                        </div>-->
+        <!--                        <div t-if="logo_position == 'right'" style="text-align: right;">-->
+        <!--                            <img t-att-src="'data:image/png;base64,%s' % logo_image" alt="Logo"-->
+        <!--                                 style="max-width: 100px;"/>-->
+        <!--                        </div>-->
+        <!--                    </t>-->
+
+        <!--                    <div class="mt-4 ">-->
+        <!--                        <t t-if="display_date">-->
+        <!--                            <div class="col-md-12 text-center text-dark mb-3">-->
+        <!--                                <h5>-->
+        <!--                                    <t t-esc="datetime.datetime.utcnow().strftime('%Y-%b-%d')"/>-->
+        <!--                                    &lt;!&ndash;<t t-esc="datetime.datetime.utcnow().strftime('%Y-%b-%d - %H:%M:%S')"/>&ndash;&gt;-->
+        <!--                                </h5>-->
+        <!--                            </div>-->
+        <!--                        </t>-->
+        <!--                        <br/>-->
+        <!--                        <t t-if="cover_image">-->
+        <!--                            <div class="col-md-12 text-center" style="page-break-after: always;">-->
+        <!--                                <img t-att-src="'data:image/png;base64,%s' % cover_image"-->
+        <!--                                     style="width: 900px; height: 700px;"/>-->
+        <!--                            </div>-->
+        <!--                        </t>-->
+        <!--                    </div>-->
+        <!--                    <br/>-->
+
+        <!--                    <div class="row mb-4">-->
+        <!--                        &lt;!&ndash; Left Column: Product Image &ndash;&gt;-->
+        <!--                        <div class="col-md-6 d-flex justify-content-center">-->
+        <!--                            <t t-if="image">-->
+        <!--                                <img t-att-src="image_data_uri(product.image_1920)" class="img-fluid"-->
+        <!--                                     alt="Product Image" style="max-width: 100%; height: auto;"/>-->
+        <!--                            </t>-->
+        <!--                        </div>-->
+
+        <!--                        &lt;!&ndash; Right Column: Product Name and Price &ndash;&gt;-->
+        <!--                        <div class="col-md-6 d-flex flex-column justify-content-center align-items-start">-->
+        <!--                            <h3 class="text-primary mb-1 text-start">-->
+        <!--                                <t t-esc="name"/>-->
+        <!--                            </h3>-->
+        <!--                            <h4 class="text-muted text-start">-->
+        <!--                                <t t-esc="currency_symbol"/>-->
+        <!--                                <t t-esc="list_price"/>-->
+        <!--                            </h4>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+
+        <!--                    &lt;!&ndash; Product Name, Price, and Description on the right &ndash;&gt;-->
+        <!--                    <div class="col-md-8">-->
+
+        <!--                        <t t-if="description">-->
+        <!--                            <p>-->
+        <!--                                <h5>Product Description:</h5>-->
+        <!--                            </p>-->
+        <!--                            <p t-esc="description" class="text-justify"/>-->
+        <!--                        </t>-->
+        <!--                    </div>-->
+
+        <!--                    &lt;!&ndash; Product Attributes Section &ndash;&gt;-->
+        <!--                    <t t-if="attributes">-->
+        <!--                        <div class="mt-4">-->
+        <!--                            <h4>Attributes:-</h4>-->
+
+        <!--                            &lt;!&ndash; Bootstrap Table for Attributes &ndash;&gt;-->
+        <!--                            <table class="table table-bordered table-striped">-->
+        <!--                                <thead class="thead-light">-->
+        <!--                                    <tr>-->
+        <!--                                        <th>Attribute</th>-->
+        <!--                                        <th>Value</th>-->
+        <!--                                    </tr>-->
+        <!--                                </thead>-->
+        <!--                                <tbody>-->
+        <!--                                    <t t-foreach="attributes" t-as="attr">-->
+        <!--                                        <tr>-->
+        <!--                                            <td>-->
+        <!--                                                <t t-esc="attr['attribute']"/>-->
+        <!--                                            </td>-->
+        <!--                                            <td>-->
+        <!--                                                <t t-esc="attr['value']"/>-->
+        <!--                                            </td>-->
+        <!--                                        </tr>-->
+        <!--                                    </t>-->
+        <!--                                </tbody>-->
+        <!--                            </table>-->
+        <!--                        </div>-->
+        <!--                    </t>-->
+        <!--                    <br/>-->
+
+        <!--                    <div class="col-md-12 text-center text-dark mb-4">-->
+        <!--                        <h4>-->
+        <!--                            <t t-esc="footer_text"/>-->
+        <!--                        </h4>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--            </t>-->
+        <!--        </t>-->
+        <!--    </template>-->
+        <!--</odoo>-->
